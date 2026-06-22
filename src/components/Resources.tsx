@@ -6,8 +6,7 @@ const categories = [
     label: 'Personal Identification',
     note: 'Basic ID documents help confirm who you are and support most benefit requests.',
     items: [
-      'Government-issued photo ID (driver\'s license or passport)',
-      'Social Security card or a document showing your Social Security number',
+      'Proof of identity document (e.g., driver\'s license, passport)',
       'Birth certificate',
     ],
   },
