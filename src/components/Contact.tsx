@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Send, CheckCircle, MapPin, Mail, Phone } from 'lucide-react';
 
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xnjkqnwb';
+
 const benefitAreas = [
   'Health Insurance',
   'Pension Benefits',
@@ -11,34 +13,51 @@ const benefitAreas = [
   'Not Sure — I Have General Questions',
 ];
 
-type FormState = 'idle' | 'submitting' | 'success';
+type FormState = 'idle' | 'submitting' | 'success' | 'error';
 
 export default function Contact() {
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    relationship: '',
-    benefitArea: '',
-    yearsPlayed: '',
-    message: '',
-  });
   const [status, setStatus] = useState<FormState>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const set = (field: string, value: string) =>
-    setForm((prev) => ({ ...prev, [field]: value }));
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus('submitting');
-    await new Promise((r) => setTimeout(r, 1200));
-    setStatus('success');
+    setErrorMsg('');
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      });
+
+      if (res.ok) {
+        setStatus('success');
+        form.reset();
+      } else {
+        const json = await res.json().catch(() => ({}));
+        setErrorMsg(
+          (json as { error?: string }).error ||
+            'Something went wrong. Please try again or email us directly.'
+        );
+        setStatus('error');
+      }
+    } catch {
+      setErrorMsg('Unable to send your request. Please check your connection and try again.');
+      setStatus('error');
+    }
   };
 
   const resetForm = () => {
     setStatus('idle');
-    setForm({ name: '', email: '', phone: '', relationship: '', benefitArea: '', yearsPlayed: '', message: '' });
+    setErrorMsg('');
   };
+
+  const inputClass =
+    'bg-white/10 border border-white/10 text-white placeholder-white/30 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-gold-400 transition-colors';
 
   return (
     <section
@@ -129,96 +148,118 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                <div className="grid sm:grid-cols-2 gap-5">
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-white/60 text-xs font-semibold uppercase tracking-wider">Full Name *</label>
-                    <input
-                      type="text" required
-                      value={form.name}
-                      onChange={(e) => set('name', e.target.value)}
-                      placeholder="Your full name"
-                      className="bg-white/10 border border-white/10 text-white placeholder-white/30 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-gold-400 transition-colors"
-                    />
+                {status === 'error' && (
+                  <div className="bg-red-500/10 border border-red-400/30 rounded-lg px-4 py-3 text-red-300 text-sm">
+                    {errorMsg}
                   </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-white/60 text-xs font-semibold uppercase tracking-wider">Email Address *</label>
-                    <input
-                      type="email" required
-                      value={form.email}
-                      onChange={(e) => set('email', e.target.value)}
-                      placeholder="your@email.com"
-                      className="bg-white/10 border border-white/10 text-white placeholder-white/30 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-gold-400 transition-colors"
-                    />
-                  </div>
-                </div>
+                )}
 
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-white/60 text-xs font-semibold uppercase tracking-wider">Phone Number</label>
+                    <label htmlFor="name" className="text-white/60 text-xs font-semibold uppercase tracking-wider">
+                      Full Name *
+                    </label>
                     <input
-                      type="tel"
-                      value={form.phone}
-                      onChange={(e) => set('phone', e.target.value)}
-                      placeholder="(555) 000-0000"
-                      className="bg-white/10 border border-white/10 text-white placeholder-white/30 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-gold-400 transition-colors"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-white/60 text-xs font-semibold uppercase tracking-wider">I Am A…</label>
-                    <select
-                      value={form.relationship}
-                      onChange={(e) => set('relationship', e.target.value)}
-                      className="bg-white/10 border border-white/10 text-white rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-gold-400 transition-colors"
-                      style={{ backgroundImage: 'none' }}
-                    >
-                      <option value="" className="bg-navy-900">Select one</option>
-                      <option value="player" className="bg-navy-900">Former Player</option>
-                      <option value="spouse" className="bg-navy-900">Spouse / Partner</option>
-                      <option value="child" className="bg-navy-900">Dependent Child</option>
-                      <option value="family" className="bg-navy-900">Surviving Family Member</option>
-                      <option value="representative" className="bg-navy-900">Authorized Representative</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-5">
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-white/60 text-xs font-semibold uppercase tracking-wider">Benefit Area *</label>
-                    <select
-                      required
-                      value={form.benefitArea}
-                      onChange={(e) => set('benefitArea', e.target.value)}
-                      className="bg-white/10 border border-white/10 text-white rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-gold-400 transition-colors"
-                      style={{ backgroundImage: 'none' }}
-                    >
-                      <option value="" className="bg-navy-900">Select one</option>
-                      {benefitAreas.map((a) => (
-                        <option key={a} value={a} className="bg-navy-900">{a}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-white/60 text-xs font-semibold uppercase tracking-wider">Years Played (Approximate)</label>
-                    <input
+                      id="name"
+                      name="name"
                       type="text"
-                      value={form.yearsPlayed}
-                      onChange={(e) => set('yearsPlayed', e.target.value)}
-                      placeholder="e.g. 1995–2003"
-                      className="bg-white/10 border border-white/10 text-white placeholder-white/30 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-gold-400 transition-colors"
+                      required
+                      placeholder="Your full name"
+                      className={inputClass}
                     />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="email" className="text-white/60 text-xs font-semibold uppercase tracking-wider">
+                      Email Address *
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      required
+                      placeholder="your@email.com"
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="phone" className="text-white/60 text-xs font-semibold uppercase tracking-wider">
+                      Phone Number
+                    </label>
+                    <input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      placeholder="(555) 000-0000"
+                      className={inputClass}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="role" className="text-white/60 text-xs font-semibold uppercase tracking-wider">
+                      I Am A…
+                    </label>
+                    <select
+                      id="role"
+                      name="role"
+                      className={inputClass}
+                      style={{ backgroundImage: 'none' }}
+                    >
+                      <option value="" className="bg-navy-900">Select one</option>
+                      <option value="Former Player" className="bg-navy-900">Former Player</option>
+                      <option value="Spouse / Partner" className="bg-navy-900">Spouse / Partner</option>
+                      <option value="Dependent Child" className="bg-navy-900">Dependent Child</option>
+                      <option value="Surviving Family Member" className="bg-navy-900">Surviving Family Member</option>
+                      <option value="Authorized Representative" className="bg-navy-900">Authorized Representative</option>
+                    </select>
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-white/60 text-xs font-semibold uppercase tracking-wider">What Can We Help You With?</label>
+                  <label htmlFor="benefit_area" className="text-white/60 text-xs font-semibold uppercase tracking-wider">
+                    Benefit Area *
+                  </label>
+                  <select
+                    id="benefit_area"
+                    name="benefit_area"
+                    required
+                    className={inputClass}
+                    style={{ backgroundImage: 'none' }}
+                  >
+                    <option value="" className="bg-navy-900">Select one</option>
+                    {benefitAreas.map((a) => (
+                      <option key={a} value={a} className="bg-navy-900">{a}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="message" className="text-white/60 text-xs font-semibold uppercase tracking-wider">
+                    What Can We Help You With?
+                  </label>
                   <textarea
+                    id="message"
+                    name="message"
                     rows={4}
-                    value={form.message}
-                    onChange={(e) => set('message', e.target.value)}
-                    placeholder="Briefly describe your situation or what you're trying to understand. There's no wrong answer — just share what's on your mind."
-                    className="bg-white/10 border border-white/10 text-white placeholder-white/30 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-gold-400 transition-colors resize-none"
+                    placeholder="Briefly describe your situation or what you're trying to understand. There's no wrong answer — just share what's on your mind. Please do not include Social Security numbers, medical records, or financial account details."
+                    className={`${inputClass} resize-none`}
                   />
                 </div>
+
+                {/* Consent */}
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    name="consent"
+                    required
+                    value="yes"
+                    className="mt-0.5 w-4 h-4 rounded border-white/20 bg-white/10 accent-gold-400 shrink-0 cursor-pointer"
+                  />
+                  <span className="text-white/50 text-sm leading-relaxed group-hover:text-white/70 transition-colors">
+                    I understand that the Major Everett Foundation provides general navigation support only and does not determine benefit eligibility, provide legal or financial advice, or act as my official representative. *
+                  </span>
+                </label>
 
                 <button
                   type="submit"
