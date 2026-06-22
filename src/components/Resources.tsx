@@ -1,50 +1,52 @@
 import { useState } from 'react';
-import { CheckSquare, Square, Download, ArrowRight } from 'lucide-react';
+import { CheckSquare, Square, ArrowRight } from 'lucide-react';
 
 const categories = [
   {
     label: 'Personal Identification',
+    note: 'Basic ID documents help confirm who you are and support most benefit requests.',
     items: [
       'Government-issued photo ID (driver\'s license or passport)',
-      'Social Security card or official SSA documentation',
+      'Social Security card or a document showing your Social Security number',
       'Birth certificate',
-      'DD-214 or military service records (if applicable)',
     ],
   },
   {
-    label: 'NFL / Playing Career',
+    label: 'Playing Career Records',
+    note: 'Documents that confirm your time in professional football are central to most benefit areas.',
     items: [
-      'NFL Player Contract(s) for each season played',
-      'Pay stubs or W-2s from playing years',
-      'Roster documentation, practice squad records, or IR placements',
-      'Any written correspondence with teams or the league',
+      'Player contracts from any season you played',
+      'Pay stubs or W-2 forms from your playing years',
+      'Any roster documentation, practice squad notices, or IR-related paperwork',
+      'Written correspondence from teams or the league (if you have it)',
     ],
   },
   {
     label: 'Health & Medical',
+    note: 'Useful if you\'re exploring disability-related programs or insurance continuation.',
     items: [
-      'Current health insurance card and plan documents',
-      'Medical records relevant to disability or injury claims',
-      'Prior authorization letters or appeal correspondence',
-      'Records of league-related surgeries or treatments',
+      'Current health insurance card and any plan summary documents',
+      'Medical records related to injuries or conditions from your playing career',
+      'Records of surgeries, treatments, or rehabilitation tied to football-related injuries',
     ],
   },
   {
     label: 'Pension & Retirement',
+    note: 'These help clarify your service history and any prior benefit elections.',
     items: [
-      'Prior pension benefit statements (if received)',
-      'Correspondence with the NFL Player Second Career Savings Plan',
-      'Beneficiary designation forms previously filed',
-      'Proof of vesting or credited seasons (if available)',
+      'Any pension benefit statements you\'ve received',
+      'Beneficiary designation forms you may have previously filed',
+      'Documents showing credited seasons or vesting status (if you have them)',
     ],
   },
   {
-    label: 'Family & Survivor',
+    label: 'Family & Survivor Documentation',
+    note: 'Required when benefits may extend to a spouse, children, or surviving family.',
     items: [
-      'Marriage certificate (for spousal benefits)',
+      'Marriage certificate (for spousal benefit inquiries)',
       'Birth certificates for dependent children',
-      'Divorce decrees or legal separation documents (if applicable)',
-      'Death certificate (for survivor benefit requests)',
+      'Divorce decree or separation agreement (if applicable)',
+      'Death certificate of a former player (for survivor benefit requests)',
     ],
   },
 ];
@@ -65,15 +67,15 @@ export default function Resources() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
           <div>
-            <p className="text-gold-500 text-sm font-bold tracking-widest uppercase mb-3">Document Checklist</p>
+            <p className="text-gold-500 text-sm font-bold tracking-widest uppercase mb-3">Getting Organized</p>
             <h2 className="font-display text-3xl md:text-5xl font-bold text-navy-900 leading-tight mb-4">
-              Prepare Before<br />You Reach Out
+              What to Have<br />on Hand
             </h2>
             <p className="text-steel-600 text-lg leading-relaxed max-w-xl">
-              Having the right documents ready can significantly speed up the benefits navigation process. Use this checklist as a starting point.
+              You don't need to have everything in order before reaching out to us — but having some of these documents available can help us point you in the right direction more quickly. Use this as a starting checklist, not a barrier.
             </p>
           </div>
-          {/* Progress */}
+          {/* Progress tracker */}
           <div className="shrink-0 bg-white rounded-2xl p-6 border border-steel-100 shadow-sm w-full md:w-56 text-center">
             <div className="relative w-20 h-20 mx-auto mb-3">
               <svg className="w-20 h-20 -rotate-90" viewBox="0 0 80 80">
@@ -99,9 +101,10 @@ export default function Resources() {
         <div className="grid md:grid-cols-2 gap-6">
           {categories.map((cat) => (
             <div key={cat.label} className="bg-white rounded-2xl p-6 border border-steel-100">
-              <h3 className="font-display text-lg font-bold text-navy-900 mb-4 pb-3 border-b border-steel-100">
+              <h3 className="font-display text-lg font-bold text-navy-900 mb-1">
                 {cat.label}
               </h3>
+              <p className="text-steel-400 text-xs mb-4 pb-3 border-b border-steel-100">{cat.note}</p>
               <ul className="flex flex-col gap-3">
                 {cat.items.map((item) => {
                   const key = `${cat.label}::${item}`;
@@ -129,12 +132,14 @@ export default function Resources() {
           ))}
         </div>
 
-        {/* CTA */}
-        <div className="mt-10 flex flex-col sm:flex-row gap-4 items-center justify-center">
-          <p className="text-steel-500 text-sm">Ready to begin? Reach out and we'll help you take the next step.</p>
+        {/* Reassurance note + CTA */}
+        <div className="mt-10 bg-white border border-steel-100 rounded-2xl px-8 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+          <p className="text-steel-600 text-sm leading-relaxed max-w-lg">
+            <span className="font-semibold text-navy-900">Don't have all of this?</span> That's okay. Many people come to us with just a few pieces of information. We can help you figure out what's missing and how to find it.
+          </p>
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 bg-navy-900 hover:bg-navy-800 text-white font-bold px-6 py-3 rounded transition-colors duration-200 text-sm"
+            className="shrink-0 inline-flex items-center gap-2 bg-navy-900 hover:bg-navy-800 text-white font-bold px-6 py-3 rounded transition-colors duration-200 text-sm"
           >
             Request Benefits Help
             <ArrowRight className="w-4 h-4" />

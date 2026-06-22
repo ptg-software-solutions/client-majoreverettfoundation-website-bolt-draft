@@ -6,12 +6,12 @@ const benefitAreas = [
   'Pension Benefits',
   'Disability Benefits',
   'Survivor Benefits',
-  'Credited Seasons / Records',
+  'Credited Seasons / Service Records',
   'Document Preparation',
-  'Not Sure — Need Guidance',
+  'Not Sure — I Have General Questions',
 ];
 
-type FormState = 'idle' | 'submitting' | 'success' | 'error';
+type FormState = 'idle' | 'submitting' | 'success';
 
 export default function Contact() {
   const [form, setForm] = useState({
@@ -31,9 +31,13 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('submitting');
-    // Simulate async submission (no backend wired in v1)
     await new Promise((r) => setTimeout(r, 1200));
     setStatus('success');
+  };
+
+  const resetForm = () => {
+    setStatus('idle');
+    setForm({ name: '', email: '', phone: '', relationship: '', benefitArea: '', yearsPlayed: '', message: '' });
   };
 
   return (
@@ -50,12 +54,12 @@ export default function Contact() {
             Request Benefits Help
           </h2>
           <p className="text-white/60 text-lg leading-relaxed">
-            Complete the form below and our team will follow up with you directly. All inquiries are handled with full confidentiality. There is no cost for our assistance.
+            Tell us a little about your situation and we'll follow up with you directly — usually within 3–5 business days. Our assistance is completely free and all inquiries are kept confidential.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-10">
-          {/* Contact info sidebar */}
+          {/* Sidebar */}
           <div className="flex flex-col gap-6">
             <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
               <h3 className="font-display text-lg font-bold text-white mb-5">Contact Information</h3>
@@ -75,7 +79,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="text-white/40 text-xs uppercase tracking-wider mb-0.5">Phone</p>
-                    <p className="text-white text-sm">Available upon request</p>
+                    <p className="text-white text-sm">Provided after initial contact</p>
                   </div>
                 </div>
                 <div className="flex gap-3 items-start">
@@ -83,17 +87,24 @@ export default function Contact() {
                     <MapPin className="w-4 h-4 text-gold-400" />
                   </div>
                   <div>
-                    <p className="text-white/40 text-xs uppercase tracking-wider mb-0.5">Service Area</p>
-                    <p className="text-white text-sm">All former NFL players &amp; families, nationwide</p>
+                    <p className="text-white/40 text-xs uppercase tracking-wider mb-0.5">Who We Serve</p>
+                    <p className="text-white text-sm">Former players and families, nationwide</p>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="bg-gold-400/10 border border-gold-400/20 rounded-2xl p-6">
-              <p className="text-gold-300 text-sm font-bold mb-2">Important Note</p>
+              <p className="text-gold-300 text-sm font-bold mb-2">Please Note</p>
               <p className="text-white/60 text-sm leading-relaxed">
-                The Major Everett Foundation provides guidance and informational support. We do not provide legal or financial advice, and we cannot guarantee eligibility determinations or benefit outcomes.
+                The Major Everett Foundation provides general information and navigation support only. We are not attorneys or benefits administrators. We do not determine eligibility or act as your official representative in any benefit process.
+              </p>
+            </div>
+
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+              <p className="text-white text-sm font-semibold mb-2">Not sure where to start?</p>
+              <p className="text-white/50 text-sm leading-relaxed">
+                That's completely fine — many people come to us with questions before they have answers. Just tell us what's on your mind and we'll take it from there.
               </p>
             </div>
           </div>
@@ -105,12 +116,12 @@ export default function Contact() {
                 <div className="w-16 h-16 rounded-full bg-gold-400/20 flex items-center justify-center">
                   <CheckCircle className="w-8 h-8 text-gold-400" />
                 </div>
-                <h3 className="font-display text-2xl font-bold text-white">Request Submitted</h3>
+                <h3 className="font-display text-2xl font-bold text-white">We Received Your Request</h3>
                 <p className="text-white/60 max-w-md leading-relaxed">
-                  Thank you for reaching out. A member of our team will review your request and follow up with you within 3–5 business days.
+                  Thank you for reaching out. A member of our team will review your information and follow up with you within 3–5 business days. We look forward to connecting with you.
                 </p>
                 <button
-                  onClick={() => { setStatus('idle'); setForm({ name: '', email: '', phone: '', relationship: '', benefitArea: '', yearsPlayed: '', message: '' }); }}
+                  onClick={resetForm}
                   className="mt-2 text-gold-400 hover:text-gold-300 text-sm font-semibold underline underline-offset-2 transition-colors"
                 >
                   Submit another request
@@ -125,7 +136,7 @@ export default function Contact() {
                       type="text" required
                       value={form.name}
                       onChange={(e) => set('name', e.target.value)}
-                      placeholder="John Smith"
+                      placeholder="Your full name"
                       className="bg-white/10 border border-white/10 text-white placeholder-white/30 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-gold-400 transition-colors"
                     />
                   </div>
@@ -135,7 +146,7 @@ export default function Contact() {
                       type="email" required
                       value={form.email}
                       onChange={(e) => set('email', e.target.value)}
-                      placeholder="john@example.com"
+                      placeholder="your@email.com"
                       className="bg-white/10 border border-white/10 text-white placeholder-white/30 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-gold-400 transition-colors"
                     />
                   </div>
@@ -153,11 +164,11 @@ export default function Contact() {
                     />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-white/60 text-xs font-semibold uppercase tracking-wider">Your Relationship</label>
+                    <label className="text-white/60 text-xs font-semibold uppercase tracking-wider">I Am A…</label>
                     <select
                       value={form.relationship}
                       onChange={(e) => set('relationship', e.target.value)}
-                      className="bg-white/10 border border-white/10 text-white rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-gold-400 transition-colors appearance-none"
+                      className="bg-white/10 border border-white/10 text-white rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-gold-400 transition-colors"
                       style={{ backgroundImage: 'none' }}
                     >
                       <option value="" className="bg-navy-900">Select one</option>
@@ -172,7 +183,7 @@ export default function Contact() {
 
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-white/60 text-xs font-semibold uppercase tracking-wider">Benefit Area of Concern *</label>
+                    <label className="text-white/60 text-xs font-semibold uppercase tracking-wider">Benefit Area *</label>
                     <select
                       required
                       value={form.benefitArea}
@@ -187,7 +198,7 @@ export default function Contact() {
                     </select>
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-white/60 text-xs font-semibold uppercase tracking-wider">Approximate Years Played</label>
+                    <label className="text-white/60 text-xs font-semibold uppercase tracking-wider">Years Played (Approximate)</label>
                     <input
                       type="text"
                       value={form.yearsPlayed}
@@ -199,12 +210,12 @@ export default function Contact() {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-white/60 text-xs font-semibold uppercase tracking-wider">Tell Us About Your Situation</label>
+                  <label className="text-white/60 text-xs font-semibold uppercase tracking-wider">What Can We Help You With?</label>
                   <textarea
                     rows={4}
                     value={form.message}
                     onChange={(e) => set('message', e.target.value)}
-                    placeholder="Briefly describe your situation and what kind of help you're looking for..."
+                    placeholder="Briefly describe your situation or what you're trying to understand. There's no wrong answer — just share what's on your mind."
                     className="bg-white/10 border border-white/10 text-white placeholder-white/30 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-gold-400 transition-colors resize-none"
                   />
                 </div>
@@ -214,7 +225,7 @@ export default function Contact() {
                   disabled={status === 'submitting'}
                   className="mt-2 inline-flex items-center justify-center gap-2 bg-gold-400 hover:bg-gold-300 disabled:opacity-60 text-navy-950 font-bold px-8 py-4 rounded transition-colors duration-200 w-full sm:w-auto"
                 >
-                  {status === 'submitting' ? 'Submitting…' : 'Submit Request'}
+                  {status === 'submitting' ? 'Sending…' : 'Submit Request'}
                   {status !== 'submitting' && <Send className="w-4 h-4" />}
                 </button>
               </form>

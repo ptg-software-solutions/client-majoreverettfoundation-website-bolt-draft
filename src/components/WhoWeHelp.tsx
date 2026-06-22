@@ -3,27 +3,27 @@ import { Users, HeartHandshake, Baby, UserRound } from 'lucide-react';
 const groups = [
   {
     icon: UserRound,
-    title: 'Former NFL Players',
+    title: 'Former Players',
     description:
-      'Players from any era who may have questions about their pension eligibility, credited seasons, disability benefits, or league health coverage.',
+      'If you played professional football — whether your career was one season or ten — you may have access to benefits you haven\'t fully explored. We help you figure out what\'s available and how to get started.',
   },
   {
     icon: HeartHandshake,
     title: 'Spouses & Partners',
     description:
-      'Spouses and domestic partners who need guidance on survivor benefit options, joint-life annuities, or healthcare continuation coverage.',
+      'Spouses and partners often have their own benefit options tied to a player\'s career. We help you understand what those might include and what questions to ask.',
   },
   {
     icon: Baby,
     title: 'Dependent Children',
     description:
-      'Families navigating dependent coverage provisions, educational assistance programs, and transition planning for children of former players.',
+      'Some benefit programs extend coverage or assistance to dependent children. We help families understand what applies to them and how to find the right information.',
   },
   {
     icon: Users,
-    title: 'Families of Deceased Players',
+    title: 'Surviving Family Members',
     description:
-      'Surviving family members who need help understanding survivor annuities, death benefits, and estate-related benefit documentation.',
+      'Losing a loved one is already overwhelming. If you\'re the surviving spouse or family member of a former player, we can help you understand what survivor benefits may exist and point you in the right direction.',
   },
 ];
 
@@ -35,10 +35,10 @@ export default function WhoWeHelp() {
         <div className="max-w-2xl mb-16">
           <p className="text-gold-500 text-sm font-bold tracking-widest uppercase mb-3">Who We Serve</p>
           <h2 className="font-display text-3xl md:text-5xl font-bold text-navy-900 leading-tight mb-5">
-            Built for Players<br />and Their Families
+            Players Put in the Work.<br />We Help With What Comes Next.
           </h2>
           <p className="text-steel-600 text-lg leading-relaxed">
-            Professional football careers are short and physically demanding. Yet navigating the benefits landscape afterward can be even harder. We're here to help those who served the game.
+            Professional football careers are short, and the transition out of the game can be hard to navigate — especially when it comes to understanding your benefits. The Major Everett Foundation is here to help you and your family find your footing.
           </p>
         </div>
 

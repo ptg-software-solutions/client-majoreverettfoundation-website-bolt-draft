@@ -5,42 +5,42 @@ const benefits = [
     icon: Heart,
     title: 'Health Insurance',
     description:
-      'Understanding post-career health coverage options, continuation rights, and how to identify plans available through league or union programs.',
+      'After a playing career ends, understanding your health coverage options can feel complicated. We help you identify what programs may be available to former players and their families, and we explain the questions worth asking.',
     tag: 'Healthcare',
   },
   {
     icon: Wallet,
     title: 'Pension Benefits',
     description:
-      'Guidance on how pension accrual works, credited season requirements, vesting rules, and what to expect when applying for distributions.',
+      'Many former players are entitled to pension benefits based on their seasons of service. We help you understand how the process generally works, what information you may need, and how to find out where you stand.',
     tag: 'Retirement',
   },
   {
     icon: ShieldAlert,
     title: 'Disability Benefits',
     description:
-      'Navigating Total & Permanent Disability, Neurocognitive Disability, and line-of-duty benefit programs — and understanding the documentation required.',
+      'Players who experienced significant injuries or long-term health effects from their career may have access to disability-related programs. We help you understand what types of programs exist and what the general application process looks like.',
     tag: 'Disability',
   },
   {
     icon: FileBadge,
     title: 'Survivor Benefits',
     description:
-      'Helping families understand survivor annuities, death benefits, and what options exist for spouses and dependents after a player\'s passing.',
+      'Surviving spouses and family members may be entitled to benefits after a player passes. We help families understand what options might be available to them and what steps to consider.',
     tag: 'Survivor',
   },
   {
     icon: BookOpen,
     title: 'Credited Seasons',
     description:
-      'Assisting players in verifying and documenting their credited seasons of service, which directly affect pension eligibility and benefit amounts.',
+      'The number of credited seasons a player has on record affects pension and other benefit eligibility. We help players understand what credited seasons mean, how they\'re counted, and how to verify or document their service history.',
     tag: 'Records',
   },
   {
     icon: FileText,
     title: 'Document Preparation',
     description:
-      'Helping players and families organize, locate, and prepare supporting documentation required to submit benefits inquiries or appeals.',
+      'Pulling together the right paperwork is often the hardest part of the process. We help players and families identify what documents they may need, how to organize them, and where to look if records are hard to find.',
     tag: 'Documentation',
   },
 ];
@@ -51,12 +51,12 @@ export default function Benefits() {
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <p className="text-gold-500 text-sm font-bold tracking-widest uppercase mb-3">Areas of Assistance</p>
+          <p className="text-gold-500 text-sm font-bold tracking-widest uppercase mb-3">Benefit Areas</p>
           <h2 className="font-display text-3xl md:text-5xl font-bold text-navy-900 leading-tight mb-5">
-            Benefits We Help<br />You Navigate
+            We Help You Navigate<br />the Benefits Landscape
           </h2>
           <p className="text-steel-600 text-lg leading-relaxed">
-            We don't make promises about outcomes. We provide guidance, resources, and informed support to help you understand your options and take the right steps.
+            We can't tell you what you'll receive — that's determined by the programs themselves. What we can do is help you understand how these benefit areas work and make sure you're asking the right questions.
           </p>
         </div>
 
@@ -80,6 +80,11 @@ export default function Benefits() {
             </div>
           ))}
         </div>
+
+        {/* Disclaimer note */}
+        <p className="mt-10 text-center text-steel-400 text-sm max-w-2xl mx-auto leading-relaxed">
+          The Major Everett Foundation provides navigation support and general information only. We do not determine eligibility, provide legal or financial advice, or act as a representative in any official benefit process.
+        </p>
       </div>
     </section>
   );

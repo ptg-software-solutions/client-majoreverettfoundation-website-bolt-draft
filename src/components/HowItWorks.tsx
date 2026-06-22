@@ -3,27 +3,27 @@ import { ArrowRight } from 'lucide-react';
 const steps = [
   {
     number: '01',
-    title: 'Submit Your Request',
+    title: 'Submit a Request',
     description:
-      'Fill out our confidential intake form. Tell us a bit about your situation — playing career, benefit area of concern, and how best to reach you.',
+      'Fill out our short request form. Just tell us a little about your situation — who you are, what benefit area you have questions about, and the best way to reach you. There\'s no cost and no obligation.',
   },
   {
     number: '02',
-    title: 'We Review & Respond',
+    title: 'We Reach Out',
     description:
-      'A member of our team will review your submission and follow up with you directly, typically within 3–5 business days.',
+      'A member of our team will review your request and follow up with you directly, typically within 3–5 business days. We\'ll listen first — no pressure, no rush.',
   },
   {
     number: '03',
-    title: 'Guidance & Resources',
+    title: 'We Share What We Know',
     description:
-      'We connect you with the right information, checklists, and contacts to help you understand your options and next steps.',
+      'We\'ll walk you through what we understand about the benefit area you asked about, share relevant resources and checklists, and help you figure out the right next steps for your situation.',
   },
   {
     number: '04',
-    title: 'Ongoing Support',
+    title: 'We Stay in Your Corner',
     description:
-      'If your situation requires continued assistance — document preparation, follow-up coordination, or referrals — we stay engaged throughout the process.',
+      'If you need ongoing help — gathering documents, understanding correspondence, or knowing who to contact — we stay available throughout the process. You don\'t have to figure it out alone.',
   },
 ];
 
@@ -36,10 +36,13 @@ export default function HowItWorks() {
           <div className="lg:sticky lg:top-28">
             <p className="text-gold-500 text-sm font-bold tracking-widest uppercase mb-3">The Process</p>
             <h2 className="font-display text-3xl md:text-5xl font-bold text-navy-900 leading-tight mb-6">
-              How We Work<br />With You
+              Simple, Free,<br />and Confidential
             </h2>
+            <p className="text-steel-600 text-lg leading-relaxed mb-4">
+              Reaching out takes just a few minutes. There's no paperwork to fill out in advance, no fees, and no obligation. We'll take it from there.
+            </p>
             <p className="text-steel-600 text-lg leading-relaxed mb-8">
-              Our process is straightforward, confidential, and completely free. We guide you through the complexities of benefits navigation — with respect for your time and your story.
+              We work with former players at all stages — whether you're just starting to ask questions or you've been trying to navigate the system for years.
             </p>
             <a
               href="#contact"

@@ -5,19 +5,19 @@ const values = [
     icon: Target,
     title: 'Our Mission',
     description:
-      'To bridge the gap between former professional football players and the benefits systems designed to support them — providing guidance, advocacy, and informed resources at every step.',
+      'To help former professional football players and their families understand and access the benefits that may be available to them — with clear information, steady guidance, and genuine care.',
   },
   {
     icon: Eye,
     title: 'Our Vision',
     description:
-      'A future where every former player and their family has access to clear, accurate information about their rights and benefits — regardless of their era, background, or circumstances.',
+      'A future where no former player is left wondering what they\'re entitled to. Where every family has access to plain-language information and a knowledgeable person to help them navigate the process.',
   },
   {
     icon: HandshakeIcon,
     title: 'Our Commitment',
     description:
-      'We operate with integrity, confidentiality, and respect for every individual we serve. We make no promises about outcomes — only that we will show up and help you navigate the road ahead.',
+      'We are not here to make decisions for you or speak on your behalf in official processes. We are here to make sure you understand your options, feel equipped, and never have to go it alone.',
   },
 ];
 
@@ -31,10 +31,9 @@ export default function About() {
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
               <img
                 src="https://images.pexels.com/photos/3183153/pexels-photo-3183153.jpeg?auto=compress&cs=tinysrgb&w=900"
-                alt="Foundation meeting and advocacy work"
+                alt="Foundation team at work"
                 className="w-full h-full object-cover"
               />
-              {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-navy-950/70 to-transparent" />
             </div>
             {/* Stat callout */}
@@ -51,10 +50,10 @@ export default function About() {
               About the Major<br />Everett Foundation
             </h2>
             <p className="text-steel-600 text-lg leading-relaxed mb-6">
-              The Major Everett Foundation was established to address a systemic gap: professional football players dedicate years of their lives to the game, often at great physical cost, yet many never fully access the benefits and protections available to them after retirement.
+              Professional football players pour everything into their careers — physically, mentally, and personally. Yet when the game ends, too many face a confusing and difficult benefits landscape with little support to help them navigate it.
             </p>
             <p className="text-steel-600 text-lg leading-relaxed mb-10">
-              Founded on the belief that former players and their families deserve informed guidance, our foundation provides free navigation assistance to help individuals understand their options and pursue the support they may be owed.
+              The Major Everett Foundation was built to change that. We exist to provide free, informed guidance to former players and their families — helping them understand what benefit programs exist, what questions to ask, and how to take the next step with clarity.
             </p>
 
             {/* Values */}
